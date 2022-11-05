@@ -1,0 +1,23 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "realsense_capture",
+            "type": "python",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/src/",
+            "program": "${workspaceFolder}/src/realsense_capture.py",
+            "args": [
+                "--output", "../images",
+                "--resolution", "480",
+                "--n_frames", "30",
+                "--frame_rate", "30",
+                "-r", "-d"
+            ],
+            "console": "integratedTerminal"
+        }
+    ]
+}
