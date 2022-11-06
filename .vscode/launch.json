@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "realsense_capture",
+            "name": "realsense_capture (depth)",
             "type": "python",
             "request": "launch",
             "cwd": "${workspaceFolder}/src/",
@@ -15,7 +15,22 @@
                 "--resolution", "480",
                 "--n_frames", "30",
                 "--frame_rate", "30",
-                "-r", "-d"
+                "-l", "-r", "-d"
+            ],
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "realsense_capture (stereo)",
+            "type": "python",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/src/",
+            "program": "${workspaceFolder}/src/realsense_capture.py",
+            "args": [
+                "--output", "../images",
+                "--resolution", "480",
+                "--n_frames", "30",
+                "--frame_rate", "30",
+                "-l", "-r"
             ],
             "console": "integratedTerminal"
         }
