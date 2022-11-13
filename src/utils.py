@@ -26,6 +26,25 @@ def depth_to_xyz(K, img_depth, z_max):
     return img_xyz
 
 
+def is_good_triangle(a, b, c):
+    '''
+    check the quality of the triangle base on ratio of max and min side
+    reject if ratio is larger than 5.
+    '''
+
+    ab = np.sqrt(np.sum(np.square(np.subtract(a, b))))
+    bc = np.sqrt(np.sum(np.square(np.subtract(b, c))))
+    ca = np.sqrt(np.sum(np.square(np.subtract(c, a))))
+
+    sides = [ab, bc, ca]
+    side_max = np.max(sides)
+    side_min = np.min(sides)
+
+    if side_max > 5 * side_min:
+        return False
+    return True
+
+
 def triangulate(img_xyz):
     '''convert organized xyz point cloud into triangles with flattened vertex index'''
 
@@ -43,12 +62,14 @@ def triangulate(img_xyz):
                continue
 
             # triangle 1 (a1, b, c)
-            if img_xyz[v, u, 2] != 0:
-               triangles.append([v * img_w + u, (v + 1) * img_w + u, v * img_w + u + 1])
+            if img_xyz[v, u, 2] != 0 and \
+               is_good_triangle(img_xyz[v, u], img_xyz[v, u + 1], img_xyz[v + 1, u]):
+                triangles.append([v * img_w + u, (v + 1) * img_w + u, v * img_w + u + 1])
 
             # triangle 2 (a2, c, b)
-            if img_xyz[v + 1, u + 1, 2] != 0:
-               triangles.append([(v + 1) * img_w + u + 1, v * img_w + u + 1, (v + 1) * img_w + u])
+            if img_xyz[v + 1, u + 1, 2] != 0 and \
+               is_good_triangle(img_xyz[v + 1, u + 1], img_xyz[v, u + 1], img_xyz[v + 1, u]):
+                triangles.append([(v + 1) * img_w + u + 1, v * img_w + u + 1, (v + 1) * img_w + u])
 
     return np.array(triangles, dtype=int)
 
