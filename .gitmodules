@@ -1,3 +1,6 @@
 [submodule "PSMNet_victor"]
 	path = PSMNet_victor
 	url = https://github.com/Victor-YG/PSMNet_victor.git
+[submodule "tsdf-fusion-python_victor"]
+	path = tsdf-fusion-python_victor
+	url = https://github.com/Victor-YG/tsdf-fusion-python_victor.git
