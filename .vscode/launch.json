@@ -14,7 +14,7 @@
                 "--output", "../images",
                 "--resolution", "480",
                 "--n_frames", "30",
-                "--frame_rate", "30",
+                "--frame_rate", "15",
                 "-l", "-r", "-d"
             ],
             "console": "integratedTerminal"
@@ -29,9 +29,57 @@
                 "--output", "../images",
                 "--resolution", "480",
                 "--n_frames", "30",
-                "--frame_rate", "30",
+                "--frame_rate", "15",
                 "-l", "-r"
             ],
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "sparse_ba",
+            "type": "python",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/src/",
+            "program": "${workspaceFolder}/src/sparse_ba.py",
+            "args": [
+                "--camera", "../camera/D455.txt",
+                "--poses", "../output/table/poses.txt",
+                "--points",  "../output/table/points.txt",
+                "--constraints",  "../output/table/constraints.txt"
+            ],
+            "console": "integratedTerminal",
+        },
+        {
+            "name": "depth_fusion (table)",
+            "type": "python",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/src/",
+            "program": "${workspaceFolder}/src/depth_fusion.py",
+            "args": [
+                "--output", "../output/table",
+                "--images", "../images/table",
+                "--camera", "../camera/D455.txt",
+                "--poses",  "../output/table/poses.txt",
+            ],
+            "console": "integratedTerminal",
+        },
+        {
+            "name": "depth_image_to_ply",
+            "type": "python",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/src/",
+            "program": "${workspaceFolder}/src/depth_image_to_ply.py",
+            "args": [
+                "../images/table_depth/000025_d.png"
+            ],
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "tsdf fusion demo",
+            "type": "python",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/tsdf-fusion-python_victor/",
+            "program": "${workspaceFolder}/tsdf-fusion-python_victor/demo.py",
+            "args": [],
             "console": "integratedTerminal"
         }
     ]

@@ -74,6 +74,96 @@ def triangulate(img_xyz):
     return np.array(triangles, dtype=int)
 
 
+def load_camera_matrix(filepath):
+    '''load camera matrix of the depth camera'''
+
+    with open(filepath, "r") as f:
+        lines = f.readlines()
+
+    for line in lines:
+        if   "fx_l" in line:
+            fx_l = np.float64(line.strip().split("=")[1])
+        elif "fy_l" in line:
+            fy_l = np.float64(line.strip().split("=")[1])
+        elif "cx_l" in line:
+            cx_l = np.float64(line.strip().split("=")[1])
+        elif "cy_l" in line:
+            cy_l = np.float64(line.strip().split("=")[1])
+        else:
+            continue
+
+    camera_matrix = np.array([
+        [fx_l,  0.0, cx_l],
+        [ 0.0, fy_l, cy_l],
+        [ 0.0,  0.0,  1.0]])
+
+    return camera_matrix
+
+
+def load_poses(filepath):
+    '''load poses (matrix) from pose.txt'''
+
+    poses = []
+
+    with open(filepath, "r") as f:
+        lines = f.readlines()
+
+    n = int(lines[0].strip())
+    if n != len(lines) - 1:
+        raise ValueError("[FAIL]: Mismatch in number of poses.")
+
+    for i in range(1, n + 1):
+        pose = np.fromstring(lines[i].strip(), dtype=np.float64, count=16, sep=" ")
+        poses.append(pose.reshape([4, 4]))
+
+    return poses
+
+
+def load_points(filepath):
+    '''load points (xyz) from points.txt'''
+
+    points = []
+
+    with open(filepath, "r") as f:
+        lines = f.readlines()
+
+    n = int(lines[0].strip())
+    if n != len(lines) - 1:
+        raise ValueError("[FAIL]: Mismatch in number of points.")
+
+    for i in range(1, n + 1):
+        point = np.fromstring(lines[i].strip(), dtype=np.float64, count=3, sep=" ")
+        points.append(point)
+
+    return points
+
+
+def load_constraints(filepath):
+    '''load constraints from constraints.txt'''
+
+    constraints = []
+
+    with open(filepath, "r") as f:
+        lines = f.readlines()
+
+    n = int(lines[0].strip())
+    if n != len(lines) - 1:
+        raise ValueError("[FAIL]: Mismatch in number of constraints.")
+
+    for i in range(1, n + 1):
+        constraint = dict()
+        arr = lines[i].strip().split(" ")
+        constraint["pose_id"] = int(arr[0])
+        constraint["point_id"] = int(arr[1])
+        constraint["u_l"] = float(arr[2])
+        constraint["v_l"] = float(arr[3])
+        constraint["u_r"] = float(arr[4])
+        constraint["v_r"] = float(arr[5])
+        constraints.append(constraint)
+
+    return constraints
+
+
 def save_ply(filename, verts, norms=None, colors=None, faces=None):
     '''save 3D mesh to ply file'''
 
