@@ -30,7 +30,7 @@ def main():
     points = load_points(args.points)
     constraints = load_constraints(args.constraints)
     camera_matrix = load_camera_matrix(args.camera)
-    camera_matrix[2, 2] = 0.1 # TODO:: replace hardcoded baseline at [2, 2]
+    camera_matrix[2, 2] = 94.902 # TODO:: replace hardcoded baseline at [2, 2]
 
     # sliding window local BA
     swba = StereoBundleAdjustment()
