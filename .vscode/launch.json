@@ -43,8 +43,48 @@
             "args": [
                 "--camera", "../camera/D455.txt",
                 "--poses", "../output/table/poses.txt",
-                "--points",  "../output/table/points.txt",
-                "--constraints",  "../output/table/constraints.txt"
+                "--points", "../output/table/points.txt",
+                "--constraints", "../output/table/constraints.txt"
+            ],
+            "console": "integratedTerminal",
+        },
+        {
+            "name": "depth_prediction (table)",
+            "type": "python",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/src/",
+            "program": "${workspaceFolder}/src/depth_prediction.py",
+            "args": [
+                "--camera", "../camera/D455.txt",
+                "--model", "../PSMNet_victor/trained/pretrained_sceneflow.tar",
+                "--input", "../images/table_stereo"
+            ],
+            "console": "integratedTerminal",
+        },
+        {
+            "name": "depth_prediction (single image)",
+            "type": "python",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/src/",
+            "program": "${workspaceFolder}/src/depth_prediction.py",
+            "args": [
+                "--camera", "../camera/D455.txt",
+                "--model", "../PSMNet_victor/trained/pretrained_sceneflow.tar",
+                "--img_l", "../images/table_stereo/000000_l.png",
+                "--img_r", "../images/table_stereo/000000_r.png"
+            ],
+            "console": "integratedTerminal",
+        },
+        {
+            "name": "(PSMNet) Test_img",
+            "type": "python",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/PSMNet_victor/",
+            "program": "${workspaceFolder}/PSMNet_victor/Test_img.py",
+            "args": [
+                "--leftimg", "../images/table/000000_l.png",
+                "--rightimg", "../images/table/000000_r.png",
+                "--no-cuda"
             ],
             "console": "integratedTerminal",
         },
@@ -69,7 +109,8 @@
             "cwd": "${workspaceFolder}/src/",
             "program": "${workspaceFolder}/src/depth_image_to_ply.py",
             "args": [
-                "../images/table_depth/000025_d.png"
+                "--camera", "../camera/D455.txt",
+                "--input", "../images/table_depth/000000_d.png"
             ],
             "console": "integratedTerminal"
         },
