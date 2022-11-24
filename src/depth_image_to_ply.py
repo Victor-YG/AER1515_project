@@ -12,9 +12,9 @@ def convert_depth_img_to_ply(filepath, camera_matrix):
 
     print("[INFO]: Converting depth image '{}'...".format(filepath))
     img_depth = cv2.imread(filepath, cv2.IMREAD_ANYDEPTH)
-    img_colormap = cv2.applyColorMap(cv2.convertScaleAbs(img_depth, alpha=0.03), cv2.COLORMAP_JET)
-    h, w = img_depth.shape
 
+    # img_colormap = cv2.applyColorMap(cv2.convertScaleAbs(img_depth, alpha=0.03), cv2.COLORMAP_JET)
+    # h, w = img_depth.shape
     # cv2.imshow("depth image ({} x {})".format(h, w), img_colormap)
     # cv2.waitKey(0)
     # cv2.destroyAllWindows()
@@ -26,8 +26,8 @@ def convert_depth_img_to_ply(filepath, camera_matrix):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--input", help="Input depth image or folder.", required=True)
     parser.add_argument("--camera", help="File containing camera info.", required=True)
+    parser.add_argument("--input", help="Input depth image or folder.", required=True)
     args = parser.parse_args()
 
     camera_matrix = load_camera_matrix(args.camera)
