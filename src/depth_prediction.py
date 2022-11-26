@@ -48,7 +48,7 @@ def load_images(img_path_l, img_path_r):
     return img_l_p, img_r_p
 
 
-def disparity_to_depth(camera_matrix, img_disparity, max_disparity=192):
+def disparity_to_depth(camera_matrix, img_disparity, resolution, max_disparity=192):
     '''convert disparity image to depth image'''
 
     h, w = img_disparity.shape
@@ -63,7 +63,7 @@ def disparity_to_depth(camera_matrix, img_disparity, max_disparity=192):
                 continue
             if img_disparity[v, u] == 0:
                 continue
-            img_depth[v, u] = np.uint16(fx * b / img_disparity[v, u])
+            img_depth[v, u] = np.uint16(fx * b / img_disparity[v, u] / resolution)
 
     return img_depth
 
@@ -76,6 +76,7 @@ def main():
     parser.add_argument("--img_l", help="Input left image.", required=False)
     parser.add_argument("--img_r", help="Input right image.", required=False)
     parser.add_argument("--max_disparity", help="Maximum disparity allowed.", type=int, default=192, required=False)
+    parser.add_argument("--resolution", help="Resolution in mm to save the depth prediction.", type=float, default=1, required=False)
     args = parser.parse_args()
 
     # create model
@@ -115,7 +116,7 @@ def main():
         # save depth image
         camera_matrix = load_camera_matrix(args.camera)
         camera_matrix[2, 2] = 94.902 # TODO::hardcoded baseline at (2, 2)
-        arr_depth = disparity_to_depth(camera_matrix, img_p, args.max_disparity)
+        arr_depth = disparity_to_depth(camera_matrix, img_p, args.resolution, args.max_disparity)
         cv2.imwrite(img_path_l.replace("_l.png", "_depth.png"), arr_depth)
 
         print("[INFO]: Done predicting depth for '{}'".format(img_path_l))

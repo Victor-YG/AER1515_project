@@ -11,7 +11,7 @@ import fusion
 from utils import load_poses, load_camera_matrix
 
 
-def load_images(folder, max_depth):
+def load_images(folder, resolution, max_depth):
     '''load the grayscale/rgb images and depth images'''
 
     imgs_color = []
@@ -31,7 +31,8 @@ def load_images(folder, max_depth):
                 img_path_d = filepath.replace("_l.png", "_depth.png")
 
             img_depth = cv2.imread(img_path_d, cv2.IMREAD_ANYDEPTH)
-
+            img_depth *= resolution
+            
             msk = img_depth > max_depth
             img_depth[msk] = 0.0
             imgs_color.append(img_color)
@@ -61,12 +62,13 @@ def main():
     parser.add_argument("--camera", help="File containing camera information", required=True)
     parser.add_argument("--poses",  help="Poses.txt containing all of the poses.", required=True)
     parser.add_argument("--decay",  help="Rate of decay is a cummulative multiple.", default=0.95, required=False)
+    parser.add_argument("--resolution", help="mm of each depth increment.", type=float, default=1, required=False)
     parser.add_argument("--max_d",  help="Max value allowed for depth.", default=500, required=False)
     #TODO::add parameter for voxel size
     args = parser.parse_args()
 
     # load input
-    imgs_color, imgs_depth = load_images(args.images, args.max_d)
+    imgs_color, imgs_depth = load_images(args.images, args.resolution, args.max_d)
     poses = load_poses(args.poses)
     camera_matrix = load_camera_matrix(args.camera)
 

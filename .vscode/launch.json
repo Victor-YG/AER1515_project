@@ -57,7 +57,8 @@
             "args": [
                 "--camera", "../camera/D455.txt",
                 "--model", "../PSMNet_victor/trained/pretrained_sceneflow.tar",
-                "--input", "../images/table_stereo"
+                "--input", "../images/table_stereo",
+                "--resolution", "0.1"
             ],
             "console": "integratedTerminal",
         },
@@ -71,7 +72,8 @@
                 "--camera", "../camera/D455.txt",
                 "--model", "../PSMNet_victor/trained/pretrained_sceneflow.tar",
                 "--img_l", "../images/table_stereo/000000_l.png",
-                "--img_r", "../images/table_stereo/000000_r.png"
+                "--img_r", "../images/table_stereo/000000_r.png",
+                "--resolution", "0.1"
             ],
             "console": "integratedTerminal",
         },
@@ -99,6 +101,7 @@
                 "--images", "../images/table",
                 "--camera", "../camera/D455.txt",
                 "--poses",  "../output/table/poses.txt",
+                "--resolution", "0.1"
             ],
             "console": "integratedTerminal",
         },
@@ -110,7 +113,8 @@
             "program": "${workspaceFolder}/src/depth_image_to_ply.py",
             "args": [
                 "--camera", "../camera/D455.txt",
-                "--input", "../images/table_depth/000000_d.png"
+                "--input", "../images/table_depth/000000_d.png",
+                "--resolution", "0.1"
             ],
             "console": "integratedTerminal"
         },

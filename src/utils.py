@@ -1,7 +1,7 @@
 import numpy as np
 
 
-def depth_to_xyz(K, img_depth, z_max):
+def depth_to_xyz(K, img_depth, resolution, z_max):
     '''convert depth image to xyz point cloud'''
 
     img_h, img_w = img_depth.shape
@@ -14,7 +14,7 @@ def depth_to_xyz(K, img_depth, z_max):
 
     for v in range(img_h):
         for u in range(img_w):
-            z = img_depth[v, u]
+            z = img_depth[v, u] * resolution
             if z < 0 or z > z_max:
                 z = 0
             x = z * (u - cx) / fx
