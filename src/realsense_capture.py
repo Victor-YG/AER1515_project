@@ -29,6 +29,7 @@ def main():
     parser.add_argument("-r", dest="stream_right_image", help="Save right image.", action="store_true", default=False, required=False)
     parser.add_argument("-d", dest="stream_depth_image", help="Save depth image.", action="store_true", default=False, required=False)
     parser.add_argument("-c", dest="stream_color_image", help="Save color image.", action="store_true", default=False, required=False)
+    parser.add_argument("-projector", dest="use_projector", help="Turn projector on for better depth quality", action="store_true", required=False)
     args = parser.parse_args()
 
     # argument checking
@@ -63,7 +64,7 @@ def main():
     pipeline_profile = rs_pipeline.start(rs_config)
     device = pipeline_profile.get_device()
     depth_sensor = device.query_sensors()[0]
-    depth_sensor.set_option(rs.option.emitter_enabled, 1 if args.stream_depth_image else 0)
+    depth_sensor.set_option(rs.option.emitter_enabled, 1 if args.use_projector else 0)
 
     for i in range(args.n_frames):
         start_time = time.time()
