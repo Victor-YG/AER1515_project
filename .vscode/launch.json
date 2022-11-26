@@ -12,10 +12,10 @@
             "program": "${workspaceFolder}/src/realsense_capture.py",
             "args": [
                 "--output", "../images",
-                "--resolution", "480",
+                "--resolution", "720",
                 "--n_frames", "30",
                 "--frame_rate", "15",
-                "-l", "-r", "-d"
+                "-l", "-r", "-d", "-projector"
             ],
             "console": "integratedTerminal"
         },
@@ -27,10 +27,10 @@
             "program": "${workspaceFolder}/src/realsense_capture.py",
             "args": [
                 "--output", "../images",
-                "--resolution", "480",
+                "--resolution", "720",
                 "--n_frames", "30",
                 "--frame_rate", "15",
-                "-l", "-r"
+                "-l", "-r", "-d"
             ],
             "console": "integratedTerminal"
         },
