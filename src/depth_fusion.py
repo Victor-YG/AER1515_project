@@ -31,12 +31,14 @@ def load_images(folder, resolution, max_depth):
                 img_path_d = filepath.replace("_l.png", "_depth.png")
 
             img_depth = cv2.imread(img_path_d, cv2.IMREAD_ANYDEPTH)
+            img_depth = img_depth.astype(np.float64)
             img_depth *= resolution
-            
+
             msk = img_depth > max_depth
             img_depth[msk] = 0.0
             imgs_color.append(img_color)
             imgs_depth.append(img_depth)
+
 
     return imgs_color, imgs_depth
 
@@ -63,7 +65,8 @@ def main():
     parser.add_argument("--poses",  help="Poses.txt containing all of the poses.", required=True)
     parser.add_argument("--decay",  help="Rate of decay is a cummulative multiple.", default=0.95, required=False)
     parser.add_argument("--resolution", help="mm of each depth increment.", type=float, default=1, required=False)
-    parser.add_argument("--max_d",  help="Max value allowed for depth.", default=500, required=False)
+    parser.add_argument("--max_d",  help="Max value allowed for depth.", type=float, default=500, required=False)
+    parser.add_argument("--voxel_size", help="Voxel size in mm.", default=3, required=False)
     #TODO::add parameter for voxel size
     args = parser.parse_args()
 
@@ -76,7 +79,7 @@ def main():
     volume_bounds = construct_volume(camera_matrix, imgs_depth, poses)
 
     # depth fusion
-    tsdf_vol = fusion.TSDFVolume(volume_bounds, voxel_size=3)
+    tsdf_vol = fusion.TSDFVolume(volume_bounds, voxel_size=args.voxel_size)
     weight = 1.0
 
     i = 0

@@ -91,7 +91,21 @@
             "console": "integratedTerminal",
         },
         {
-            "name": "depth_fusion (table)",
+            "name": "depth_fusion (table prediction)",
+            "type": "python",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/src/",
+            "program": "${workspaceFolder}/src/depth_fusion.py",
+            "args": [
+                "--output", "../output/table",
+                "--images", "../images/table_stereo",
+                "--camera", "../camera/D455.txt",
+                "--poses",  "../output/table/poses.txt",
+            ],
+            "console": "integratedTerminal",
+        },
+        {
+            "name": "depth_fusion (table ground truth)",
             "type": "python",
             "request": "launch",
             "cwd": "${workspaceFolder}/src/",
