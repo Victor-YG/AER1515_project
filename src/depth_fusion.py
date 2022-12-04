@@ -64,7 +64,7 @@ def main():
     parser.add_argument("--camera", help="File containing camera information", required=True)
     parser.add_argument("--poses",  help="Poses.txt containing all of the poses.", required=True)
     parser.add_argument("--decay",  help="Rate of decay is a cummulative multiple.", default=0.95, required=False)
-    parser.add_argument("--resolution", help="mm of each depth increment.", type=float, default=1, required=False)
+    parser.add_argument("--resolution", help="mm of each depth increment.", type=float, default=0.1, required=False)
     parser.add_argument("--max_d",  help="Max value allowed for depth.", type=float, default=500, required=False)
     parser.add_argument("--voxel_size", help="Voxel size in mm.", default=3, required=False)
     #TODO::add parameter for voxel size
