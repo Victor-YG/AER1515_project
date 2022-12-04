@@ -48,7 +48,7 @@
         "param-censusvsize": "9",
         "param-depthclampmax": "65536",
         "param-depthclampmin": "0",
-        "param-depthunits": "1000",
+        "param-depthunits": "100",
         "param-disableraucolor": "0",
         "param-disablesadcolor": "0",
         "param-disablesadnormalize": "0",
@@ -92,14 +92,13 @@
         "param-texturecountthresh": "0",
         "param-texturedifferencethresh": "1722",
         "param-usersm": "1",
-        "param-zunits": "1000"
+        "param-zunits": "100"
     },
     "schema version": 1,
     "viewer": {
         "stream-depth-format": "Z16",
         "stream-fps": "30",
-        "stream-height": "480",
-        "stream-ir-format": "R8L8",
-        "stream-width": "640"
+        "stream-height": "720",
+        "stream-width": "1280"
     }
 }
