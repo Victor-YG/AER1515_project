@@ -28,7 +28,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--camera", help="File containing camera info.", required=True)
     parser.add_argument("--input", help="Input depth image or folder.", required=True)
-    parser.add_argument("--resolution", help="mm of each depth increment.", type=float, default=1, required=False)
+    parser.add_argument("--resolution", help="mm of each depth increment.", type=float, default=0.1, required=False)
     parser.add_argument("--max_depth", help="Max depth allowed in mm.", type=int, default=1000, required=False)
     args = parser.parse_args()
 
