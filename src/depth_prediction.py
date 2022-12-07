@@ -13,7 +13,7 @@ import torchvision.transforms as transforms
 sys.path.append(os.path.join(os.path.abspath(os.curdir), "../PSMNet_victor"))
 from models import *
 
-from utils import load_camera_matrix
+from utils import load_camera_info
 
 
 def find_images(folder):
@@ -86,6 +86,15 @@ def main():
     model.load_state_dict(state_dict['state_dict'])
     print("[INF]: Number of model parameters: {}".format(sum([p.data.nelement() for p in model.parameters()])))
 
+    # load camera info
+    cam_info = load_camera_info(args.camera)
+    fx = float(cam_info["fx_l"])
+    fy = float(cam_info["fy_l"])
+    cx = float(cam_info["cx_l"])
+    cy = float(cam_info["cy_l"])
+    b  = float(cam_info["b"])
+    camera_matrix = np.array([[fx,  0, cx], [ 0, fy, cy], [ 0,  0,  b]]) # hardcoded baseline at (2, 2)
+
     # find all images
     images = []
     if args.input is not None:
@@ -114,8 +123,6 @@ def main():
         img_disparity.save(img_path_l.replace("_l.png", "_disparity.png"))
 
         # save depth image
-        camera_matrix = load_camera_matrix(args.camera)
-        camera_matrix[2, 2] = 94.902 # TODO::hardcoded baseline at (2, 2)
         arr_depth = disparity_to_depth(camera_matrix, img_p, args.resolution, args.max_disparity)
         cv2.imwrite(img_path_l.replace("_l.png", "_depth.png"), arr_depth)
 

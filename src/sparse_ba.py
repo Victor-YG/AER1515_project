@@ -2,7 +2,7 @@ import os
 import argparse
 
 import numpy as np
-from utils import load_camera_matrix, load_poses, load_points, load_constraints
+from utils import load_camera_info, load_poses, load_points, load_constraints
 from g2o_wrapper import StereoBundleAdjustment
 
 
@@ -29,8 +29,15 @@ def main():
     poses = load_poses(args.poses)
     points = load_points(args.points)
     constraints = load_constraints(args.constraints)
-    camera_matrix = load_camera_matrix(args.camera)
-    camera_matrix[2, 2] = 94.902 # TODO:: replace hardcoded baseline at [2, 2]
+
+    # load camera info
+    cam_info = load_camera_info(args.camera)
+    fx = float(cam_info["fx_l"])
+    fy = float(cam_info["fy_l"])
+    cx = float(cam_info["cx_l"])
+    cy = float(cam_info["cy_l"])
+    b  = float(cam_info["b"])
+    camera_matrix = np.array([[fx,  0, cx], [ 0, fy, cy], [ 0,  0,  b]]) # hardcoded baseline at (2, 2)
 
     # sliding window local BA
     swba = StereoBundleAdjustment()

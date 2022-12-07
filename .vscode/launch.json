@@ -41,7 +41,7 @@
             "cwd": "${workspaceFolder}/src/",
             "program": "${workspaceFolder}/src/sparse_ba.py",
             "args": [
-                "--camera", "../camera/D455.txt",
+                "--camera", "../camera/D455_480P.txt",
                 "--poses", "../output/table/poses.txt",
                 "--points", "../output/table/points.txt",
                 "--constraints", "../output/table/constraints.txt"
@@ -55,7 +55,7 @@
             "cwd": "${workspaceFolder}/src/",
             "program": "${workspaceFolder}/src/depth_prediction.py",
             "args": [
-                "--camera", "../camera/D455.txt",
+                "--camera", "../camera/D455_480P.txt",
                 "--model", "../PSMNet_victor/trained/pretrained_sceneflow.tar",
                 "--input", "../images/table_stereo",
                 "--resolution", "0.1"
@@ -69,7 +69,7 @@
             "cwd": "${workspaceFolder}/src/",
             "program": "${workspaceFolder}/src/depth_prediction.py",
             "args": [
-                "--camera", "../camera/D455.txt",
+                "--camera", "../camera/D455_480P.txt",
                 "--model", "../PSMNet_victor/trained/pretrained_sceneflow.tar",
                 "--img_l", "../images/table_stereo/000000_l.png",
                 "--img_r", "../images/table_stereo/000000_r.png",
@@ -99,7 +99,7 @@
             "args": [
                 "--output", "../output/table",
                 "--images", "../images/table_stereo",
-                "--camera", "../camera/D455.txt",
+                "--camera", "../camera/D455_480P.txt",
                 "--poses",  "../output/table/poses.txt",
             ],
             "console": "integratedTerminal",
@@ -113,7 +113,7 @@
             "args": [
                 "--output", "../output/table",
                 "--images", "../images/table",
-                "--camera", "../camera/D455.txt",
+                "--camera", "../camera/D455_480P.txt",
                 "--poses",  "../output/table/poses.txt",
                 "--resolution", "0.1"
             ],
@@ -126,7 +126,7 @@
             "cwd": "${workspaceFolder}/src/",
             "program": "${workspaceFolder}/src/depth_image_to_ply.py",
             "args": [
-                "--camera", "../camera/D455.txt",
+                "--camera", "../camera/D455_480P.txt",
                 "--input", "../images/table_depth/000000_d.png",
                 "--resolution", "0.1"
             ],
