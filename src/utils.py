@@ -74,6 +74,40 @@ def triangulate(img_xyz):
     return np.array(triangles, dtype=int)
 
 
+def load_poses_from_aln(filepath):
+    '''load poses from aln file as a list of np.array'''
+
+    with open(filepath, "r") as f:
+        lines = f.readlines()
+
+    poses = []
+    for i in range(len(lines)):
+        if "#" in lines[i]:
+            pose_str = lines[i + 1].strip() + " " \
+                     + lines[i + 2].strip() + " " \
+                     + lines[i + 3].strip() + " " \
+                     + lines[i + 4].strip()
+            pose = np.fromstring(pose_str, sep=" ", dtype=np.float64, count=16)
+            poses.append(pose.reshape([4, 4]))
+            i += 5
+
+    return poses
+
+
+def load_camera_info(filepath):
+    '''load camera information in dictionary'''
+
+    with open(filepath, "r") as f:
+        lines = f.readlines()
+
+    cam_info = {}
+    for line in lines:
+        key, value = line.strip().split("=")
+        cam_info[key] = value
+
+    return cam_info
+
+
 def load_camera_matrix(filepath):
     '''load camera matrix of the depth camera'''
 

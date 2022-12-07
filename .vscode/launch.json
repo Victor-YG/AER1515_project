@@ -133,6 +133,19 @@
             "console": "integratedTerminal"
         },
         {
+            "name": "render_depth (building_gt)",
+            "type": "python",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/src/",
+            "program": "${workspaceFolder}/src/render_depth.py",
+            "args": [
+                "--ply", "../output/building_gt/reconstruction_5mm.ply",
+                "--camera", "../camera/D455_720P.txt",
+                "--aln", "../output/building_gt/pose.aln"
+            ],
+            "console": "integratedTerminal"
+        },
+        {
             "name": "tsdf fusion demo",
             "type": "python",
             "request": "launch",
