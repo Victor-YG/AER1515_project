@@ -35,6 +35,7 @@ def main():
 
     # load ply file
     mesh = o3d.io.read_triangle_mesh(args.ply)
+    mesh.transform(pose)
 
     # setup camera
     intrinsic = o3d.camera.PinholeCameraIntrinsic(
@@ -46,7 +47,7 @@ def main():
         cy=float(cam_info["cy_l"]))
     camera = o3d.camera.PinholeCameraParameters()
     camera.intrinsic = intrinsic
-    camera.extrinsic = np.linalg.inv(pose)
+    camera.extrinsic = np.eye(4)
 
     # setup visualizer
     vis = o3d.visualization.Visualizer()
