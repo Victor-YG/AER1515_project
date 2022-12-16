@@ -4,3 +4,7 @@
 [submodule "tsdf-fusion-python_victor"]
 	path = tsdf-fusion-python_victor
 	url = https://github.com/Victor-YG/tsdf-fusion-python_victor.git
+[submodule "stereo_orb_slam"]
+	path = stereo_orb_slam
+	url = https://github.com/Victor-YG/stereo_orb_slam.git
+	branch = AER1515
