@@ -76,7 +76,7 @@ def main():
     parser.add_argument("--img_l", help="Input left image.", required=False)
     parser.add_argument("--img_r", help="Input right image.", required=False)
     parser.add_argument("--max_disparity", help="Maximum disparity allowed.", type=int, default=192, required=False)
-    parser.add_argument("--resolution", help="Resolution in mm to save the depth prediction.", type=float, default=1, required=False)
+    parser.add_argument("--resolution", help="Resolution in mm to save the depth prediction.", type=float, default=0.1, required=False)
     args = parser.parse_args()
 
     # create model
